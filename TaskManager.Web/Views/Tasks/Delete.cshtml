@@ -1,0 +1,26 @@
+@model TaskItem
+@{
+    ViewData["Title"] = "Delete Task";
+}
+
+<div class="form-page">
+    <div class="form-card delete-card">
+        <div class="delete-icon">⚠</div>
+        <h2 class="form-heading">Delete Task?</h2>
+        <p class="delete-msg">This action cannot be undone.</p>
+
+        <div class="detail-row"><span>Title</span><strong>@Model.Title</strong></div>
+        <div class="detail-row"><span>Assigned To</span><strong>@Model.AssignedTo</strong></div>
+        <div class="detail-row"><span>Due Date</span><strong>@Model.DueDate.ToString("dd MMM yyyy")</strong></div>
+        <div class="detail-row"><span>Status</span><strong>@Model.Status</strong></div>
+
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Id" />
+            <div class="form-actions">
+                <a href="/Tasks" class="btn btn-ghost">Cancel</a>
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            </div>
+        </form>
+    </div>
+</div>

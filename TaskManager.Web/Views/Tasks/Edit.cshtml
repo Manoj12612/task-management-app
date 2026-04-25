@@ -1,0 +1,46 @@
+@using TaskManager.Web.Models
+@model TaskItem
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<div class="form-page">
+    <div class="form-card">
+        <h2 class="form-heading">Edit Task</h2>
+
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="Title">Title</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="field-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AssignedTo">Assigned To</label>
+                <input asp-for="AssignedTo" class="form-control" />
+                <span asp-validation-for="AssignedTo" class="field-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DueDate">Due Date</label>
+                <input asp-for="DueDate" type="date" class="form-control"
+                       min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="DueDate" class="field-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status">Status</label>
+                <select asp-for="Status" class="form-control"
+                        asp-items="Html.GetEnumSelectList<TaskManager.Web.Models.TaskStatus>()"></select>
+            </div>
+
+            <div class="form-actions">
+                <a href="/Tasks" class="btn btn-ghost">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>

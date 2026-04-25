@@ -1,0 +1,58 @@
+@model IEnumerable<TaskItem>
+@using TaskManager.Web.Models
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">All Tasks</h1>
+        <p class="page-sub">@Model.Count() task(s) total</p>
+    </div>
+    <a href="/Tasks/Create" class="btn btn-primary">+ New Task</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <div class="empty-icon">📋</div>
+        <p>No tasks yet. Create your first one.</p>
+    </div>
+}
+else
+{
+    <div class="task-table-wrap">
+        <table class="task-table" id="task-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Assigned To</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model)
+                {
+                    <tr>
+                        <td class="task-title">@task.Title</td>
+                        <td>@task.AssignedTo</td>
+                        <td class="@(task.DueDate.Date < DateTime.Today ? "overdue" : "")">
+                            @task.DueDate.ToString("dd MMM yyyy")
+                        </td>
+                        <td>
+                            <span class="badge badge-@task.Status.ToString().ToLower()">
+                                @(task.Status == TaskManager.Web.Models.TaskStatus.InProgress ? "In Progress" : task.Status.ToString())
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <a href="/Tasks/Edit/@task.Id" class="action-link edit">Edit</a>
+                            <a href="/Tasks/Delete/@task.Id" class="action-link delete">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
