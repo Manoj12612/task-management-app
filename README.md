@@ -89,6 +89,22 @@ TaskManager/
 - Validation: required fields, future date enforcement, max length
 - Flash messages on successful operations
 
+## Screenshots
+
+### Task List
+![Task List](ScreenShots/Task Management View.jpg)
+
+### Create Task
+![Create Task](ScreenShots/Create Task.jpg)
+
+### Edit Task
+![Edit Task](ScreenShots/Edit task manager.jpg)
+
+### Delete Task
+![Delete Task](ScreenShots/Delete Task.jpg)
+
+### Task Flow
+![Task Flow](ScreenShots/Task flow.jpg)
 ---
 
 ## Notes
