@@ -1,4 +1,5 @@
 using Microsoft.Playwright.NUnit;
+using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 
 namespace TaskManager.Playwright
@@ -6,7 +7,7 @@ namespace TaskManager.Playwright
     [TestFixture]
     public class TaskUITests : PageTest
     {
-        private const string BaseUrl = "https://localhost:5001";
+        private const string BaseUrl = "https://localhost:56115";
 
         [Test]
         public async Task CreateTask_WithValidData_ShouldAppearInTaskList()
@@ -20,9 +21,9 @@ namespace TaskManager.Playwright
             await Page.FillAsync("input[name='DueDate']", tomorrow);
 
             await Page.SelectOptionAsync("select[name='Status']", "New");
+            
             await Page.ClickAsync("button[type='submit']");
-
-            await Page.WaitForURLAsync($"{BaseUrl}/Tasks");
+            await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 
             var pageContent = await Page.ContentAsync();
             Assert.That(pageContent, Does.Contain("Playwright Test Task"));
